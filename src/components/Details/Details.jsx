@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
@@ -7,8 +6,10 @@ function Details () {
 
     const history = useHistory();
     const dispatch = useDispatch();
+    // this is the object with details for selected movie
     const movie = useSelector(store => store.selected);
     
+    // when "Back to Movie List" button is clicked
     function onBackClick () {
         // empty selected reducer
         dispatch({ 

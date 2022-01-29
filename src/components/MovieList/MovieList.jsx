@@ -9,10 +9,14 @@ function MovieList() {
     const history = useHistory();
     const movies = useSelector(store => store.movies);
 
+    // get all movies on page load
     useEffect(() => {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
 
+    // when individual movie is clicked
+    // send info to be combined with genres
+    // for details page
     function getDetails (movie) {
         console.log('in getDetails:', movie);
         dispatch({ 

@@ -22,18 +22,18 @@ function* fetchAllMovies() {
     try {
         const movies = yield axios.get('/api/movie');
         console.log('get all:', movies.data);
+        // send movies from DB to movies reducer
         yield put({ type: 'SET_MOVIES', payload: movies.data });
 
     } catch {
         console.log('index.js get movies error');
-    }
-        
-}
+    } 
+};
 
-// Create sagaMiddleware
+// create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
 
-// Used to store movies returned from the server
+// used to store movies returned from the server
 const movies = (state = [], action) => {
     switch (action.type) {
         case 'SET_MOVIES':
@@ -41,14 +41,15 @@ const movies = (state = [], action) => {
         default:
             return state;
     }
-}
+};
 
+// called by dispatch when a movie is selected
 function* fetchDetails(action) {
-    // get details for selected movie from DB
     let movie = action.payload;
     try {
+        // get details for selected movie from DB
         const details = yield axios.get(`/api/genre/${movie.id}`);
-        console.log('details.data:', details.data);
+        // creates object for selected reducer
         yield put({ 
             type: 'SET_SELECTED', 
             payload: {
@@ -62,10 +63,9 @@ function* fetchDetails(action) {
     } catch {
         console.log('index.js get genres error');
     }
-        
-}
+};
 
-// Used to store the movie genres
+// used to store details of the selected movie
 const selected = (state = [], action) => {
     switch (action.type) {
         case 'SET_SELECTED':
@@ -73,19 +73,19 @@ const selected = (state = [], action) => {
         default:
             return state;
     }
-}
+};
 
-// Create one store that all components can use
+// create one store that all components can use
 const storeInstance = createStore(
     combineReducers({
         movies,
         selected,
     }),
-    // Add sagaMiddleware to our store
+    // add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),
 );
 
-// Pass rootSaga into our sagaMiddleware
+// pass rootSaga into our sagaMiddleware
 sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
