@@ -16,6 +16,30 @@ router.get('/', (req, res) => {
 
 });
 
+// router.get('/:id', (req, res) => {
+//   console.log('req.params is:', req.params);
+//   const queryText = `
+//     SELECT * FROM "movies"
+//     WHERE "movies"."id" = $1;
+//   `;
+
+//   const queryParams=[
+//     req.params.id, 
+//   ];
+
+//   pool.query(queryText, queryParams)
+//     .then( result => {
+//       console.log('result.rows is:', result.rows);
+//       res.send(result.rows);
+//     })
+//     .catch(err => {
+//       console.log('Error in GET /api/movies/:id', err);
+//       res.sendStatus(500)
+//     })
+
+// });
+
+
 router.post('/', (req, res) => {
   console.log(req.body);
   // RETURNING "id" will give us back the id of the created movie
