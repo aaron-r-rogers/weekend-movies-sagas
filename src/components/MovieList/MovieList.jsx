@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import './MovieList.css'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -14,6 +14,7 @@ import Box from '@mui/material/Box';
 function MovieList() {
     const dispatch = useDispatch();
     const history = useHistory();
+    // all of the movies in DB from redux store:
     const movies = useSelector(store => store.movies);
 
     // get all movies on page load
@@ -24,13 +25,17 @@ function MovieList() {
     // when individual movie is clicked
     // send info to be combined with genres
     // for details page
-    function getDetails (movie) {
-        console.log('in getDetails:', movie);
+    function getGenreDetails (movie) {
+        console.log('in getDetails movie.id is:', movie.id);
         dispatch({ 
-            type: 'FETCH_DETAILS',
-            payload: movie 
+            type: 'FETCH_MOVIE_DETAILS', 
+            payload: movie.id
         });
-        history.push('/details');
+        dispatch({ 
+            type: 'FETCH_GENRE_DETAILS',
+            payload: movie.id 
+        });
+        history.push(`/details/${movie.id}`);
     };
 
     return (
@@ -42,7 +47,7 @@ function MovieList() {
             pb: 6,
         }}
         >
-        <Container maxWidth="sm">
+        <Container maxWidth="sm" sx={{ mt: 6 }}>
             <Typography
             component="h2"
             variant="h2"
@@ -61,6 +66,9 @@ function MovieList() {
             {movies.map(movie => {
             return (
                 <Grid item xs={12} sm={6} md={4} key={movie.id}>
+                {/* <Link
+                    style={{ textDecoration: 'none' }}
+                    to={`/details/${movie.id}`}> */}
                     <Card sx={{ 
                         height: '100%', 
                         display: 'flex', 
@@ -73,14 +81,19 @@ function MovieList() {
                     }}
                     image={movie.poster}
                     alt={movie.title}
-                    onClick={() => getDetails(movie)}
+                    onClick={() => getGenreDetails(movie)}
                     />
                     <CardContent sx={{ flexGrow: 1 }}>
-                        <Typography gutterBottom variant="h5" component="h2">
+                        <Typography 
+                            gutterBottom 
+                            variant="h5" 
+                            component="h2"
+                        >
                         {movie.title}
                         </Typography>
                     </CardContent>
                     </Card>
+                    {/* </Link> */}
                 </Grid>
             );
             })}

@@ -30,12 +30,12 @@ router.get('/:id', (req, res) => {
 
 });
 
+// need all genres for selection in AddMovie form
 router.get('/', (req, res) => {
   // get all of the genres from table
   const queryText = `
     SELECT * FROM "genres";
   `
-
   pool
     .query(queryText)
     .then((result) => {

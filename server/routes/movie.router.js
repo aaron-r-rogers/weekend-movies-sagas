@@ -16,28 +16,29 @@ router.get('/', (req, res) => {
 
 });
 
-// for stretch...get one movie at a time
-// router.get('/:id', (req, res) => {
-//   console.log('req.params is:', req.params);
-//   const queryText = `
-//     SELECT * FROM "movies"
-//     WHERE "movies"."id" = $1;
-//   `;
+// for stretch goal 2, get one movie at a time
+router.get('/:id', (req, res) => {
+  console.log('req.params in movie/:id is:', req.params.id);
+  const queryText = `
+    SELECT * FROM "movies"
+    WHERE "movies"."id" = $1;
+  `;
 
-//   const queryParams=[
-//     req.params.id, 
-//   ];
+  const queryParams=[
+    req.params.id, 
+  ];
 
-//   pool.query(queryText, queryParams)
-//     .then( result => {
-//       console.log('result.rows is:', result.rows);
-//       res.send(result.rows);
-//     })
-//     .catch(err => {
-//       console.log('Error in GET /api/movies/:id', err);
-//       res.sendStatus(500)
-//     })
-// });
+  pool
+    .query(queryText, queryParams)
+    .then( result => {
+      console.log('result.rows is:', result.rows);
+      res.send(result.rows);
+    })
+    .catch(err => {
+      console.log('Error in GET /api/movies/:id', err);
+      res.sendStatus(500)
+    })
+});
 
 
 router.post('/', (req, res) => {

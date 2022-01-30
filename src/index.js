@@ -14,7 +14,8 @@ import axios from 'axios';
 // create the rootSaga generator function
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
-    yield takeEvery('FETCH_DETAILS', fetchDetails);
+    yield takeEvery('FETCH_GENRE_DETAILS', fetchGenreDetails);
+    yield takeEvery('FETCH_MOVIE_DETAILS', fetchMovieDetails);
     yield takeEvery('FETCH_GENRES', fetchGenres);
     yield takeEvery('ADD_MOVIE', addMovie);
 };
@@ -70,20 +71,16 @@ const genres = (state = [], action) => {
 }
 
 // called by dispatch when a movie is selected
-function* fetchDetails(action) {
-    let movie = action.payload;
+function* fetchGenreDetails(action) {
+    console.log('action.payload in fetchGenreDetails is:', action.payload);
     try {
         // get details for selected movie from DB
-        const details = yield axios.get(`/api/genre/${movie.id}`);
-        // creates object for selected reducer
+        const details = yield axios.get(`/api/genre/${action.payload}`);
+        // sends genres for given id to reducer
         yield put({ 
             type: 'SET_SELECTED', 
-            payload: {
-                title: movie.title,
-                poster: movie.poster,
-                description: movie.description,
-                genres: details.data[0].genres
-            }
+            payload: details.data[0].genres
+
         });
 
     } catch {
@@ -92,7 +89,7 @@ function* fetchDetails(action) {
 };
 
 // used to store details of the selected movie
-const selected = (state = [], action) => {
+const selectedGenres = (state = [], action) => {
     switch (action.type) {
         case 'SET_SELECTED':
             return action.payload;
@@ -100,6 +97,33 @@ const selected = (state = [], action) => {
             return state;
     }
 };
+
+// called by dispatch when a movie is selected
+function* fetchMovieDetails(action) {
+    console.log('action.payload in fetchMovieDetails is:', action.payload);
+    try {
+        // get details for selected movie from DB
+        const info = yield axios.get(`/api/movie/${action.payload}`);
+        // sends details for given id to reducer
+        yield put({ 
+            type: 'SET_DETAILS', 
+            payload: info.data[0]
+        });
+
+    } catch {
+        console.log('index.js get genres error');
+    }
+};
+
+// movie-specific details returned from the server
+const details = (state = [], action) => {
+    switch (action.type) {
+        case 'SET_DETAILS':
+            return action.payload;
+        default:
+            return state;
+    }
+}
 
 // add new movie to DB
 function* addMovie(action) {
@@ -116,8 +140,9 @@ function* addMovie(action) {
 const storeInstance = createStore(
     combineReducers({
         movies,
-        selected,
-        genres
+        selectedGenres,
+        genres,
+        details,
     }),
     // add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),
