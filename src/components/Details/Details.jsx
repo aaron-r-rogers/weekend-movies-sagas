@@ -79,10 +79,10 @@ function Details () {
                 onClick={onBackClick}>
                 Back to Movie List
             </Button>
-            <IconButton color="secondary" onClick={onClickEdit}>
-            Edit
-            <EditIcon />
-        </IconButton>
+            {/* <IconButton color="secondary" onClick={onClickEdit}>
+                Edit
+                <EditIcon />
+            </IconButton> */}
         </Box>
         </Paper>
         </Container>
