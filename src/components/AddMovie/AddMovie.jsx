@@ -15,7 +15,7 @@ function AddMovie() {
 
     const history = useHistory();
     const dispatch = useDispatch();
-    const theme = useTheme();
+    // const theme = useTheme();
     // list of all genres in store
     const genres = useSelector(store => store.genres);
 
