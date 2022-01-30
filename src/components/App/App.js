@@ -1,7 +1,8 @@
 import {HashRouter as Router, Route} from 'react-router-dom';
 import './App.css';
-import MovieList from '../MovieList/MovieList'
-import Details from '../Details/Details'
+import MovieList from '../MovieList/MovieList';
+import Details from '../Details/Details';
+import AddMovie from '../AddMovie/AddMovie';
 import AppBar from '@mui/material/AppBar';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
@@ -38,13 +39,18 @@ function App() {
         </Toolbar>
       </AppBar>
       
-      <Router>        
+      <Router>    
+
         <Route path="/" exact>
           <MovieList />
         </Route>
         
         <Route path="/details" exact>
           <Details />
+        </Route>
+
+        <Route path="/add" exact>
+          <AddMovie />
         </Route>
 
       </Router>

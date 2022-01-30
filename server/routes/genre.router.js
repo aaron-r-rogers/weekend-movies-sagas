@@ -24,6 +24,23 @@ router.get('/:id', (req, res) => {
       res.send(result.rows);
     })
     .catch((error) => {
+      console.log(`Error in GET /api/genre/:id`, error);
+      res.sendStatus(500);
+    });
+
+});
+
+router.get('/', (req, res) => {
+  // get all of the genres from table
+  const queryText = `
+  SELECT "name" FROM "genres";`
+
+  pool
+    .query(queryText)
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((error) => {
       console.log(`Error in GET /api/genre`, error);
       res.sendStatus(500);
     });
