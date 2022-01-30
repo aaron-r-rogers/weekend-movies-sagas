@@ -25,19 +25,14 @@ function Details () {
         <>
         <h2>{movie.title}</h2>
         <img src={movie.poster}></img>  
-        {/* <h4> */}
-            {movie.genres.length > 1 ? (
-                <h4>Genres:</h4>
-            ) : (
-                <h4>Genre:</h4>
-            )}
-            {/* {movie.genres.length > 0 && 'Genre'}
+        <h4>
+            {movie.genres.length > 0 && 'Genre'}
             {movie.genres.length > 1 && 's:'}
-        </h4> */}
+        </h4>
         <div>
         {movie.genres?.map(genre => genre).join(',  ')}
         </div>
-        <h5>Description: {movie.description}</h5>
+        <h4>Description: {movie.description}</h4>
         <button
             onClick={onBackClick}>
                 Back to Movie List
