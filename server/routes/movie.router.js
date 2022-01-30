@@ -16,37 +16,70 @@ router.get('/', (req, res) => {
 
 });
 
+// for stretch goal 2, get one movie at a time
+router.get('/:id', (req, res) => {
+  console.log('req.params in movie/:id is:', req.params.id);
+  const queryText = `
+    SELECT * FROM "movies"
+    WHERE "movies"."id" = $1;
+  `;
+
+  const queryParams=[
+    req.params.id, 
+  ];
+
+  pool
+    .query(queryText, queryParams)
+    .then( result => {
+      console.log('result.rows is:', result.rows);
+      res.send(result.rows);
+    })
+    .catch(err => {
+      console.log('Error in GET /api/movies/:id', err);
+      res.sendStatus(500)
+    })
+});
+
+
 router.post('/', (req, res) => {
   console.log(req.body);
-  // RETURNING "id" will give us back the id of the created movie
-  const insertMovieQuery = `
+  // first insert is into movies table...
+  const moviesQueryText = `
   INSERT INTO "movies" ("title", "poster", "description")
   VALUES ($1, $2, $3)
   RETURNING "id";`
 
-  // FIRST QUERY MAKES MOVIE
-  pool.query(insertMovieQuery, [req.body.title, req.body.poster, req.body.description])
+  pool
+  // query for movies table...
+  .query(moviesQueryText, [
+    req.body.title, 
+    req.body.poster, 
+    req.body.description
+  ])
   .then(result => {
-    console.log('New Movie Id:', result.rows[0].id); //ID IS HERE!
-    
-    const createdMovieId = result.rows[0].id
+    // returned id is generated in DB by 
+    // default as serial primary key
+    const newMovieId = result.rows[0].id
 
-    // Now handle the genre reference
-    const insertMovieGenreQuery = `
+    // query for movies_genres junction table...
+    const moviesGenresQueryText = `
       INSERT INTO "movies_genres" ("movie_id", "genre_id")
       VALUES  ($1, $2);
       `
-      // SECOND QUERY ADDS GENRE FOR THAT NEW MOVIE
-      pool.query(insertMovieGenreQuery, [createdMovieId, req.body.genre_id]).then(result => {
-        //Now that both are done, send back success!
-        res.sendStatus(201);
-      }).catch(err => {
-        // catch for second query
-        console.log(err);
-        res.sendStatus(500)
-      })
+    // add relationship referencing id's...
+    pool.query(moviesGenresQueryText, [
+      newMovieId, 
+      req.body.genre_id
+    ])
+    .then(result => {
+      res.sendStatus(201);
+    }).catch(err => {
+      // second query catch
+      console.log(err);
+      res.sendStatus(500)
+    })
 
-// Catch for first query
+  // first query catch
   }).catch(err => {
     console.log(err);
     res.sendStatus(500)
