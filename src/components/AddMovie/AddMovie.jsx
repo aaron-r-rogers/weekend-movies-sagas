@@ -4,7 +4,7 @@ import { useHistory } from "react-router";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { MenuItem, TextareaAutosize, Button, Input } from "@material-ui/core";
+import { MenuItem, TextareaAutosize, Button } from "@material-ui/core";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -15,7 +15,7 @@ function AddMovie() {
 
     const history = useHistory();
     const dispatch = useDispatch();
-    const theme = useTheme();
+    // const theme = useTheme();
     // list of all genres in store
     const genres = useSelector(store => store.genres);
 
