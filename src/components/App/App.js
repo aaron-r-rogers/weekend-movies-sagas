@@ -9,10 +9,16 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 function App() {
-  
+
   const theme = createTheme({
     palette: {
       mode: 'dark',
+      primary: {
+        main: '#42a5f5',
+      },
+      secondary: {
+        main: '#cddc39',
+      },
     },
   });
 
