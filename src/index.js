@@ -16,6 +16,7 @@ function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
     yield takeEvery('FETCH_DETAILS', fetchDetails);
     yield takeEvery('FETCH_GENRES', fetchGenres);
+    yield takeEvery('ADD_MOVIE', addMovie);
 };
 
 // get all movies from the DB
@@ -99,6 +100,17 @@ const selected = (state = [], action) => {
             return state;
     }
 };
+
+// add new movie to DB
+function* addMovie(action) {
+    try {
+        axios.post('/api/movie', action.payload)
+        // update state for list component
+        yield put({ type: 'FETCH_MOVIES' });
+    } catch (error) {
+        console.log('get all error');
+    }
+}
 
 // create one store that all components can use
 const storeInstance = createStore(

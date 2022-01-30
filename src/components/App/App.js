@@ -27,7 +27,7 @@ function App() {
     <ThemeProvider theme={theme}>
     <CssBaseline />
     <div className="App">
-    <AppBar position="relative">
+    <AppBar position="fixed">
         <Toolbar>
           <Typography 
             variant="h5" 

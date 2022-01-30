@@ -33,7 +33,8 @@ router.get('/:id', (req, res) => {
 router.get('/', (req, res) => {
   // get all of the genres from table
   const queryText = `
-  SELECT "name" FROM "genres";`
+    SELECT * FROM "genres";
+  `
 
   pool
     .query(queryText)
