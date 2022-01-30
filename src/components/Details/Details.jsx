@@ -7,6 +7,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import AppBarComponent from '../AppBar/AppBar';
+import EditIcon from '@mui/icons-material/Edit';
+import IconButton from "@material-ui/core/IconButton";
 
 function Details () {
 
@@ -42,6 +44,17 @@ function Details () {
         history.push('/');
     };
 
+        // when edit button is clicked
+        function onClickEdit () {
+            // empty selected reducer
+            dispatch({ 
+                type: 'SET_SELECTED',
+                payload: ''
+            });
+            //return to main page
+            history.push(`/edit/${id}`);
+        };
+
     return(
         <>
         <AppBarComponent />
@@ -66,6 +79,10 @@ function Details () {
                 onClick={onBackClick}>
                 Back to Movie List
             </Button>
+            <IconButton color="secondary" onClick={onClickEdit}>
+            Edit
+            <EditIcon />
+        </IconButton>
         </Box>
         </Paper>
         </Container>

@@ -6,14 +6,10 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { MenuItem, TextareaAutosize, Button, Input } from "@material-ui/core";
 import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import OutlinedInput from "@mui/material/OutlinedInput";
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useTheme } from '@mui/material/styles';
 
 function AddMovie() {
 
@@ -22,9 +18,6 @@ function AddMovie() {
     const theme = useTheme();
     // list of all genres in store
     const genres = useSelector(store => store.genres);
-    // for stretch...
-    // state var to manage genre selection in form
-    //const [genreSelection, setGenreSelection] = useState([]);
 
     // get all genres on initialization
     useEffect(() => {
@@ -45,7 +38,7 @@ function AddMovie() {
         },
     };
 
-    // for stretch...
+    // for stretch...select multiple genres
     // visual cues when genre is selected from dropdown
     // function getStyles(genre, genreSelection, theme) {
     //     return {

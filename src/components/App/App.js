@@ -6,7 +6,6 @@ import AddMovie from '../AddMovie/AddMovie';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-
 function App() {
 
   const theme = createTheme({
