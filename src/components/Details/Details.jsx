@@ -7,8 +7,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import AppBarComponent from '../AppBar/AppBar';
-import EditIcon from '@mui/icons-material/Edit';
-import IconButton from "@material-ui/core/IconButton";
+// import EditIcon from '@mui/icons-material/Edit';
+// import IconButton from "@material-ui/core/IconButton";
 
 function Details () {
 
