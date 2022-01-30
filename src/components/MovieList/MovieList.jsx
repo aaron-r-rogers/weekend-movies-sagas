@@ -40,7 +40,7 @@ function MovieList() {
     };
 
     return (
-        <>
+        <div>
         <ReturnToTop showBelow={250} />
         <AppBarComponent />
         <Box
@@ -102,7 +102,7 @@ function MovieList() {
             })}
         </Grid>
         </Container>
-        </>
+        </div>
     );
 }
 

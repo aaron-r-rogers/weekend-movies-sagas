@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import ArrowCircleUpTwoToneIcon from '@mui/icons-material/ArrowCircleUpTwoTone';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import IconButton from "@material-ui/core/IconButton";
 
 // styling for icon
@@ -21,9 +21,9 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 
-const ReturnToTop = (
+const ReturnToTop = ({
     showBelow
-) => {
+}) => {
 
     const classes = useStyles();
 
@@ -55,7 +55,7 @@ const ReturnToTop = (
         <div>
             {show &&
                 <IconButton onClick={handleClick} className={classes.toTop}>
-                    <ArrowCircleUpTwoToneIcon />
+                    <KeyboardArrowUpIcon />
                 </IconButton>
             }
         </div>
