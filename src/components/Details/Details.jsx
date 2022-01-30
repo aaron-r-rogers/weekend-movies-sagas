@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
+import AppBarComponent from '../AppBar/AppBar';
 
 function Details () {
 
@@ -43,6 +44,7 @@ function Details () {
 
     return(
         <>
+        <AppBarComponent />
         <Container maxWidth="md" sx={{ mt: 10, p: 2}}>
         <Paper>
         <Box sx={{ p: 2 }}>

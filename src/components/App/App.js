@@ -1,13 +1,11 @@
-import {HashRouter as Router, Route, Switch } from 'react-router-dom';
+import {HashRouter as Router, Route, Link } from 'react-router-dom';
 import './App.css';
 import MovieList from '../MovieList/MovieList';
 import Details from '../Details/Details';
 import AddMovie from '../AddMovie/AddMovie';
-import AppBar from '@mui/material/AppBar';
 import CssBaseline from '@mui/material/CssBaseline';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 
 function App() {
 
@@ -27,31 +25,19 @@ function App() {
     <ThemeProvider theme={theme}>
     <CssBaseline />
     <div className="App">
-    <AppBar position="fixed">
-        <Toolbar>
-          <Typography 
-            variant="h5" 
-            color="inherit"
-            gutterBottom
-            noWrap>
-            The Movies Saga!
-          </Typography>
-        </Toolbar>
-      </AppBar>
+    <Router>
+
+      <Route path="/" exact>
+        <MovieList />
+      </Route>
       
-      <Router>    
+      <Route path="/details/:id" exact>
+        <Details />
+      </Route>
 
-        <Route path="/" exact>
-          <MovieList />
-        </Route>
-        
-        <Route path="/details/:id" exact>
-          <Details />
-        </Route>
-
-        <Route path="/add" exact>
-          <AddMovie />
-        </Route>
+      <Route path="/add" exact>
+        <AddMovie />
+      </Route>
 
       </Router>
     </div>

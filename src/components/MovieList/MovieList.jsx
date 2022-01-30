@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import './MovieList.css'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -9,7 +9,8 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-
+import AppBarComponent from '../AppBar/AppBar';
+import ReturnToTop from '../ReturnToTop/ReturnToTop';
 
 function MovieList() {
     const dispatch = useDispatch();
@@ -40,6 +41,8 @@ function MovieList() {
 
     return (
         <>
+        <ReturnToTop showBelow={250} />
+        <AppBarComponent />
         <Box
         sx={{
             bgcolor: 'background.paper',
@@ -54,7 +57,7 @@ function MovieList() {
             align="center"
             color="text.primary"
             >
-            The Movies
+            The Movies Saga
             </Typography>
             <Typography variant="h5" align="center" color="text.secondary" paragraph>
             Select from the list below to view details.
